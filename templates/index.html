@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StockAgent — technical analysis, plainly explained</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">STOCKAGENT<span class="cursor">_</span></div>
+  <div class="topbar-right">
+    <span id="clock" class="clock"></span>
+    <span class="topbar-note">rule-based signals, not financial advice</span>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <h1>Type a company.<br>Get a verdict.</h1>
+    <form id="lookup-form" class="lookup-form" autocomplete="off">
+      <input id="ticker-input" type="text" placeholder="AAPL or Apple" maxlength="40" spellcheck="false" required>
+      <button type="submit">Look up</button>
+    </form>
+    <div class="quick-picks">
+      <span>try:</span>
+      <button class="chip" data-ticker="AAPL">AAPL</button>
+      <button class="chip" data-ticker="Nvidia">Nvidia</button>
+      <button class="chip" data-ticker="MSFT">MSFT</button>
+      <button class="chip" data-ticker="TCS.NS">TCS.NS</button>
+      <button class="chip" data-ticker="INFY.NS">INFY.NS</button>
+    </div>
+    <p id="error-msg" class="error-msg" hidden></p>
+  </section>
+
+  <section id="results" class="results" hidden>
+
+    <div class="panel overview">
+      <div class="overview-head">
+        <div>
+          <div class="company-name" id="company-name">—</div>
+          <div class="sector" id="sector">—</div>
+        </div>
+        <div class="price-block">
+          <div class="price" id="price">—</div>
+          <div class="change" id="change">—</div>
+        </div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat"><span class="stat-label">Market cap</span><span class="stat-value" id="market-cap">—</span></div>
+        <div class="stat"><span class="stat-label">P/E ratio</span><span class="stat-value" id="pe-ratio">—</span></div>
+        <div class="stat"><span class="stat-label">Volume</span><span class="stat-value" id="volume">—</span></div>
+        <div class="stat"><span class="stat-label">52w high</span><span class="stat-value" id="high-52w">—</span></div>
+        <div class="stat"><span class="stat-label">52w low</span><span class="stat-value" id="low-52w">—</span></div>
+      </div>
+    </div>
+
+    <div class="panel chart-panel">
+      <div class="panel-title">Price · SMA20 · SMA50</div>
+      <div class="chart-box"><canvas id="price-chart"></canvas></div>
+    </div>
+
+    <div class="panel chart-panel">
+      <div class="panel-title">RSI (14)</div>
+      <div class="chart-box chart-box-small"><canvas id="rsi-chart"></canvas></div>
+    </div>
+
+    <div class="panel run-panel">
+      <button id="run-btn">Run analysis</button>
+      <label class="llm-toggle">
+        <input type="checkbox" id="llm-toggle">
+        <span>Explain with Gemini</span>
+      </label>
+      <span id="run-status" class="run-status"></span>
+    </div>
+
+    <div id="verdict" class="panel verdict" hidden>
+      <div class="verdict-head">
+        <div id="verdict-signal" class="verdict-signal">HOLD</div>
+        <div class="confidence-block">
+          <div class="confidence-label">confidence <span id="confidence-value">0</span>%</div>
+          <div class="confidence-bar"><div id="confidence-fill" class="confidence-fill"></div></div>
+        </div>
+      </div>
+      <ul id="signal-list" class="signal-list"></ul>
+      <p id="narrative" class="narrative"></p>
+      <p class="disclaimer">Technical-indicator estimate for learning purposes only. Not financial advice.</p>
+    </div>
+
+  </section>
+</main>
+
+<script src="{{ url_for('static', filename='vendor/chart.umd.min.js') }}"></script>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

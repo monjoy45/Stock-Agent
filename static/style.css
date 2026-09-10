@@ -25,8 +25,10 @@ body {
 
 .topbar {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: baseline;
+  gap: 6px 16px;
   padding: 20px 32px;
   border-bottom: 1px solid var(--hairline);
 }
@@ -52,8 +54,9 @@ body {
 
 .topbar-right {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
-  gap: 16px;
+  gap: 6px 16px;
 }
 
 .clock {
@@ -190,8 +193,10 @@ main {
 
 .overview-head {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-start;
+  gap: 12px 20px;
   padding-bottom: 20px;
   border-bottom: 1px solid var(--hairline);
   margin-bottom: 20px;
@@ -377,4 +382,21 @@ main {
   .stat-grid { grid-template-columns: repeat(2, 1fr); }
   .lookup-form { flex-direction: column; }
   .lookup-form input { border-right: 1px solid var(--hairline); }
+
+  .topbar { padding: 16px 20px; }
+  .topbar-note { display: none; }
+
+  main { padding: 0 16px 60px; }
+  .hero { padding: 48px 0 32px; }
+
+  .panel { padding: 16px; }
+
+  .overview-head { align-items: flex-start; }
+  .price-block { text-align: left; }
+
+  .chart-box { height: 220px; }
+  .chart-box-small { height: 140px; }
+
+  .verdict-signal { font-size: 26px; }
+  .confidence-block { min-width: 0; width: 100%; }
 }
